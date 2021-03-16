@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="app.css">
+  
+  <title>Frontend Mentor | Rock, Paper, Scissors</title>
+
+  <style>
+    * {
+      font-family: 'Barlow Semi Condensed', sans-serif;
+    }
+
+    @font-face {
+    font-family: 'Barlow Semi Condensed';
+    src: url('fonts/barlowsemicondensed-bold-webfont.woff2') format('woff2'),
+         url('fonts/barlowsemicondensed-bold-webfont.woff') format('woff');
+    font-weight: 700;
+    font-style: bold;
+    }
+
+    @font-face {
+        font-family: 'Barlow Semi Condensed';
+        src: url('fonts/barlowsemicondensed-semibold-webfont.woff2') format('woff2'),
+            url('fonts/barlowsemicondensed-semibold-webfont.woff') format('woff');
+        font-weight: 600;
+        font-style: 600;
+
+    }
+
+    body {
+      height: 100vh;
+      background:rgb(27,42,75);
+      background: url('images/bg-triangle.svg'), radial-gradient(circle, rgba(27,42,75,1) 0%, rgba(19,22,57,1) 100%) center fixed;
+      background-repeat: no-repeat;
+      background-position: center 270px, center;
+    }
+
+    .pierre {
+      border: 20px solid #db2e4c;
+      border-radius: 100%;
+    }
+
+    .pierre2 {
+      border: 20px solid #db2e4c;
+      border-radius: 100%;
+    }
+    
+    .pierre:hover{
+      border: 20px solid #ee4460;
+    }
+
+    .feuille {
+      border: 20px solid #516df4;
+      border-radius: 100%;
+    }
+
+    .feuille2 {
+      border: 20px solid #516df4;
+      border-radius: 100%;
+    }
+
+    .feuille:hover {
+      border: 20px solid #6079f8;
+    }
+    
+    .ciseaux {
+      border: 20px solid #eaa81e;
+      border-radius: 100%;
+    }
+
+    .ciseaux2 {
+      border: 20px solid #eaa81e;
+      border-radius: 100%;
+    }
+
+    .ciseaux:hover {
+      border: 20px solid #f5b938;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .rulesimg {
+      background: url('images/image-rules.svg');
+      background-repeat: no-repeat;
+      background-position: center 30px;
+    }
+    
+    [x-cloak] {
+        display: none !important;
+    }
+
+    @media (max-width: 375px) { 
+      .rulesimg {
+        background-size: contain;
+        background-position-y: 50px;
+      }
+
+      body {
+        background-size: 250px, cover;
+        }
+    }
+
+  </style>
+  <script src="js/alpine.js"></script>
+</head>
+<body class="flex justify-center relative" x-data="{ open: false }">
+  <div class="rules border-2 py-1 px-7 rounded-lg cursor-pointer w-auto h-9 absolute mt-4 " @click="open = true">
+    <span class="uppercase text-white">Rules</span>
+  </div>
+  <div class="header flex flex-row h-28 w-6/12 justify-between p-3 border-2 rounded-xl mt-16 mobile:w-11/12">
+    <img src="images/logo.svg" alt="">
+    <div class="div-score flex flex-col text-center bg-white py-2 px-7 rounded-md">
+      <span class="uppercase text-blue-900">Score</span>
+      <span class="score text-5xl text-gray-700"></span>
+    </div>
+  </div>
+
+  <div class="buttons absolute top-52 mobile:top-52">
+    <div class="inputs">
+      <div class="top">
+        <button class="feuille py-7 px-8 mobile:py-6 mobile:px-7 bg-gray-100 mr-10 focus:outline-none little:py-3 little:px-4 little:mr-7 btn" id='1'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="49" height="59"><path fill="#3B4262" d="M47.125 11.832a2.922 2.922 0 00-1.232-.198c-.57.04-1.029.271-1.302.65-1.604 2.248-2.919 6.493-3.979 9.905-.486 1.577-1.14 3.688-1.612 4.69-.493-2.807.064-13.09.28-17.05l.003-.064c.15-2.751.17-3.234.138-3.446-.238-1.509-.843-2.5-1.799-2.943-.966-.45-2.22-.25-3.572.563-.677.41-.865 1.816-1.446 8.19l-.002.028c-.32 3.502-1.058 11.566-1.965 12.91-1.023-1.88-2.431-12.555-3.039-17.176-.425-3.236-.673-5.094-.84-5.655-.35-1.176-1.83-2.176-3.295-2.232-1.22-.06-2.22.56-2.698 1.638-.894.995-.578 4.292.41 12.102.47 3.718 1.44 11.395.83 12.257-1.219-.133-3.31-4.942-6.215-14.299-.816-2.62-1.068-3.408-1.318-3.753-.494-1.202-2.172-2.129-3.676-2.024a3.183 3.183 0 00-.377.049c-.787.156-2.584.881-2.2 4.226 1.06 4.637 2.213 8.041 3.331 11.346l.023.066c.669 1.98 1.302 3.85 1.89 5.925 1.385 4.9.846 7.94.84 7.975-.046.312-.143.503-.288.57a.556.556 0 01-.195.045c-.44.03-1.098-.26-1.437-.45-.776-1.482-4.636-8.544-8.134-9.524l-.126-.037-.127.012c-1.283.121-2.226.606-2.803 1.441-.914 1.32-.535 3.002-.444 3.34l.052.12c.028.051 2.834 5.165 3.268 7.544.374 2.04 2.311 4.25 3.869 6.026l.064.073c.508.58.946 1.083 1.292 1.548 4.519 4.713 11.665 8.677 11.723 8.71.892.657 1.387 1.293 1.44 1.84a.798.798 0 01-.16.58l-.155.162.988.96 18.853-1.324.804-3.684c2.486-10.402 1.967-19.272 1.958-19.33.01-.327.706-3.483 1.266-6.033l.017-.065c1.117-5.08 2.505-11.4 2.772-13.803.116-1.028-.542-1.972-1.675-2.401z"/></svg>
+        </button>
+        <button class="ciseaux py-7 px-8 mobile:py-6 mobile:px-7 bg-gray-100 focus:outline-none little:py-3 little:px-4 btn" id="2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="51" height="58"><path fill="#3B4262" d="M13.971 25.702l6.012-8.415c-2.499-.415-7.088-.507-10.846 3.235C3.212 26.421.812 39.163.312 42.248L15.37 57.24c2.711-.232 14.713-1.827 26.279-13.34.122-.249 2.94-2.321.636-4.614-1.1-1.095-2.919-1.074-4.042.044-.572.57-1.461.577-2.021.02-.56-.557-.552-1.443.02-2.012l4.087-4.069c2.076-2.067.119-5.555-2.78-4.717l-3.345 2.851c-.611.53-1.52.439-2.022-.14-.519-.597-.408-1.503.183-2.013 11.687-10.208 9.98-8.979 17.5-15.995 2.809-2.329-.725-6.447-3.493-4.09L28.182 25.45c-.529.448-1.34.457-1.86-.02-.601-.517-.615-1.262-.222-1.85L38.787 3.944c1.854-2.5-1.795-5.277-3.749-2.757L16.28 27.307c-.452.65-1.364.8-1.985.345a1.377 1.377 0 01-.323-1.95z"/></svg>
+        </button>
+      </div>
+      <div class="button-pierre">
+        <button class="pierre p-8 mobile:p-7 bg-gray-100 ml-24 mt-10 focus:outline-none little:p-4 little:ml-20 btn" id='0'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><path fill="#3B4262" d="M45.06 12.22c-.642-8.096-9.734-7.269-9.734-7.269-3.837-6.765-9.832-1.865-9.832-1.865-4.606-6.63-10.38-.486-10.38-.486-9.957-1.074-9.571 7.066-9.571 7.066-.234 2.588 1.403 10.593 1.403 10.593-1.477-4.614-4.68-.784-4.68-.784-3.94 6.078-.975 9.405-.975 9.405 5.33 6.246 16.688 13.743 16.688 13.743 4.113 2.356 2.373 4.457 2.373 4.457l24.876-4.11.571-4.718c3.782-11.436-.739-26.032-.739-26.032z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Second scene -->
+
+    <div class="game flex hide">
+      <div class="joueur text-center mr-36 mobile:mr-14 little:mr-8">
+        <span class="uppercase text-white text-2xl mobile:text-lg">You picked</span>
+        <div class="rond-joueur bg-gray-900 h-52 w-52 opacity-80 mt-20 rounded-full relative mobile:h-36 mobile:w-36 mobile:mt-5 little:h-32 little:w-32">
+
+        </div>
+      </div>
+      <div class="play-again flex flex-col justify-center text-center items-center hide mx-10 w-72 mobile:w-10 mobile:mr-14 mobile:hidden">
+        <span class="results text-5xl text-white"></span>
+        <button class="px-12 py-2 text-red-500 rounded-md bg-white mt-3 uppercase focus:outline-none " onclick="location.reload();">Play Again</button>
+      </div>
+      <div class="bot text-center">
+        <span class="uppercase text-white text-2xl mobile:text-lg">The house picked</span>
+        <div class="rond-bot bg-gray-900 h-52 w-52 opacity-80 mt-20 rounded-full relative mobile:h-36 mobile:w-36 mobile:mt-5 little:h-32 little:w-32">
+        </div>
+      </div>
+    </div>
+    <div class="play-again mobile:flex flex-col justify-center text-center items-center hide mx-10 w-72 mobile:w-auto mobile:mr-14 hidden mobile:my-14 mobile:mt-8">
+      <span class="results text-5xl text-white mobile:text-3xl"></span>
+      <button class="px-12 py-2 text-red-500 rounded-md bg-white mt-3 uppercase focus:outline-none" onclick="location.reload();">Play Again</button>
+    </div>
+  </div>
+
+
+  <!-- Rules Modal -->
+  <div class="absolute w-full h-screen flex justify-center items-center" x-show="open" x-cloak>
+    <div class="background-modal w-full h-screen bg-gray-900 absolute opacity-80"></div>
+    <div class="modal-rules w-96 h-96 bg-white absolute rounded-lg p-6 little:w-full little:h-full little:rounded-none" @click.away="open = !open">
+      <div class="top flex justify-between little:justify-center">
+        <span class="uppercase text-3xl text-gray-800 font-bold little:mt-10">Rules</span>
+        <div class="close little:hidden" @click="open = !open">
+          <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="20" height="20"><path fill="#3B4262" fill-rule="evenodd" d="M16.97 0l2.122 2.121-7.425 7.425 7.425 7.425-2.121 2.12-7.425-7.424-7.425 7.425L0 16.97l7.425-7.425L0 2.121 2.121 0l7.425 7.425L16.971 0z" opacity=".25"/></svg>
+        </div>
+      </div>
+      <div class="rulesimg w-full h-96"></div>
+      <div class="close flex justify-center">
+        <div class="close hidden little:block little:mt-5" @click="open = !open">
+          <svg xmlns="http://www.w3.org/2000/svg" class="cursor-pointer" width="20" height="20"><path fill="#3B4262" fill-rule="evenodd" d="M16.97 0l2.122 2.121-7.425 7.425 7.425 7.425-2.121 2.12-7.425-7.424-7.425 7.425L0 16.97l7.425-7.425L0 2.121 2.121 0l7.425 7.425L16.971 0z" opacity=".25"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="js/jquery-3.6.0.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
